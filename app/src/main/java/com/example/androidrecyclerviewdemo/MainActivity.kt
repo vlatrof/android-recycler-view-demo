@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     fun generateUserData(): ArrayList<UserModel> {
 
-        var userList = ArrayList<UserModel>()
+        val userList = ArrayList<UserModel>()
 
         userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
         userList.add(UserModel("Looking for job! =)", "Thank you for visiting my github!"))

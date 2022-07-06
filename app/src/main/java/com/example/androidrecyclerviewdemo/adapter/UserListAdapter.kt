@@ -32,8 +32,8 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
 
         // our view holder without concrete data that returned by method OnCreateViewHolder
-        // is provided immediately
-        // to method onBindViewHolder to be filled with data and be fitted in recycler view
+        // is provided immediately to method onBindViewHolder to be filled with data
+        // and be fitted in recycler view
         // @param position:
         // provides automatically as position of element in data list (userList in this case)
         // that renderers currently

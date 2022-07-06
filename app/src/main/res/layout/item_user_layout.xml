@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="10dp"
-    android:layout_marginBottom="2dp">
+    android:layout_marginBottom="2dp"
+    app:cardElevation="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,18 +19,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lastname"
-            tools:ignore="HardcodedText"
             android:textColor="@color/black"
             android:textSize="17sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tv_firstname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Firstname"
-            tools:ignore="HardcodedText"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            tools:ignore="HardcodedText" />
 
 
     </LinearLayout>
