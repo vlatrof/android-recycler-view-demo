@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidrecyclerviewdemo.R
-import com.example.androidrecyclerviewdemo.model.UserModel
+import com.example.androidrecyclerviewdemo.model.User
 import kotlinx.android.synthetic.main.item_user_layout.view.*
 
 class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
 
-    private var userList = emptyList<UserModel>()
+    private var userList = emptyList<User>()
 
     class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -47,7 +47,7 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.UserViewHolder>() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<UserModel>) {
+    fun setList(list: List<User>) {
         this.userList = list
 
         // this command tells to adapter that source data (userList in this case) have been changed

@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidrecyclerviewdemo.adapter.UserListAdapter
 import com.example.androidrecyclerviewdemo.databinding.ActivityMainBinding
-import com.example.androidrecyclerviewdemo.model.UserModel
+import com.example.androidrecyclerviewdemo.model.User
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,27 +26,27 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun generateUserData(): ArrayList<UserModel> {
+    fun generateUserData(): ArrayList<User> {
 
-        val userList = ArrayList<UserModel>()
+        val userList = ArrayList<User>()
 
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("Looking for job! =)", "Thank you for visiting my github!"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
-        userList.add(UserModel("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("Looking for job! =)", "Thank you for visiting my github!"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
+        userList.add(User("User_card_name_demo", "User_card_description_demo"))
 
         return userList
 
