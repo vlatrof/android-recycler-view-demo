@@ -1,38 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="2dp"
-    app:cardElevation="10dp">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="8dp">
+    <ImageView
+        android:id="@+id/iv_user_photo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_user_photo_placeholder" />
 
-        <TextView
-            android:id="@+id/tv_lastname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lastname"
-            android:textColor="@color/black"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:text="User Name"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/iv_more_button"
+        app:layout_constraintStart_toEndOf="@id/iv_user_photo"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
-        <TextView
-            android:id="@+id/tv_firstname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Firstname"
-            android:textColor="@color/black"
-            tools:ignore="HardcodedText" />
+    <TextView
+        android:id="@+id/tv_user_company_name"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:text="User Company Name"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@id/iv_more_button"
+        app:layout_constraintStart_toEndOf="@id/iv_user_photo"
+        app:layout_constraintTop_toBottomOf="@id/tv_user_name"
+        tools:ignore="HardcodedText" />
 
+    <ImageView
+        android:id="@+id/iv_more_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_more" />
 
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

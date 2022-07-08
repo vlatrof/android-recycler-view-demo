@@ -3,9 +3,12 @@ package com.example.androidrecyclerviewdemo.model
 import com.github.javafaker.Faker
 import java.util.*
 
+typealias UsersListener = (users: List<User>) -> Unit
+
 class UsersService {
 
     private var users = mutableListOf<User>()
+    private val listeners = mutableSetOf<UsersListener>()
 
     init {
 
@@ -28,6 +31,7 @@ class UsersService {
         val indexToDelete = users.indexOfFirst { it.id == user.id }
         if (indexToDelete == -1) { return } // user not found
         users.removeAt(indexToDelete)
+        notifyChanges()
     }
 
     fun moveUser(user: User, moveBy: Int) {
@@ -40,6 +44,23 @@ class UsersService {
 
         Collections.swap(users, oldIndex, newIndex)
 
+        notifyChanges()
+
+    }
+
+    fun addListener(listener: UsersListener) {
+        listeners.add(listener)
+        listener.invoke(users) // for first refresh
+    }
+
+    fun removeListener(listener: UsersListener) {
+        listeners.remove(listener)
+    }
+
+    private fun notifyChanges() {
+        listeners.forEach { listener ->
+            listener.invoke(users)
+        }
     }
 
     companion object {
