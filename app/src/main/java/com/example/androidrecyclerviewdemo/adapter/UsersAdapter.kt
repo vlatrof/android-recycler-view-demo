@@ -20,9 +20,6 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
 
-        // parent – The ViewGroup into which the new View will be added
-        // after it is bound to an adapter position.
-        val kek = parent // TODO delete this line
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemUserLayoutBinding.inflate(
             inflater, parent, false)
