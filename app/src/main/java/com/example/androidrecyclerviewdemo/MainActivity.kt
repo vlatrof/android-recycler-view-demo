@@ -1,10 +1,13 @@
 package com.example.androidrecyclerviewdemo
 
+import android.location.GnssAntennaInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidrecyclerviewdemo.adapter.UsersAdapter
 import com.example.androidrecyclerviewdemo.databinding.ActivityMainBinding
+import com.example.androidrecyclerviewdemo.model.User
 import com.example.androidrecyclerviewdemo.model.UsersListener
 import com.example.androidrecyclerviewdemo.model.UsersService
 
@@ -18,6 +21,10 @@ class MainActivity : AppCompatActivity() {
 
     private val usersListener: UsersListener = {
         usersAdapter.users = it
+    }
+
+    fun onUsersUpdate(newUsersList: List<User>) {
+        usersAdapter.users = newUsersList
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
