@@ -1,14 +1,13 @@
-package com.example.androidrecyclerviewdemo.model
+package com.example.androidrecyclerviewdemo.utils
 
+import com.example.androidrecyclerviewdemo.model.User
 import com.github.javafaker.Faker
 import java.util.*
-
-typealias UsersListener = (users: List<User>) -> Unit
 
 class UsersService {
 
     private var users = mutableListOf<User>()
-    private val listeners = mutableSetOf<UsersListener>()
+    private val listeners = mutableSetOf<UsersServiceListener>()
 
     init {
 
@@ -21,7 +20,8 @@ class UsersService {
                 name = faker.name().name(),
                 company = faker.company().name(),
                 photo = IMAGES[it % IMAGES.size]
-        )}.toMutableList()
+        )
+        }.toMutableList()
 
     }
 
@@ -50,18 +50,18 @@ class UsersService {
 
     }
 
-    fun addListener(listener: UsersListener) {
+    fun addListener(listener: UsersServiceListener) {
         listeners.add(listener)
-        listener.invoke(users)
+        listener.onUsersUpdated(users)
     }
 
-    fun removeListener(listener: UsersListener) {
+    fun removeListener(listener: UsersServiceListener) {
         listeners.remove(listener)
     }
 
     private fun notifyChanges() {
         listeners.forEach { listener ->
-            listener.invoke(users)
+            listener.onUsersUpdated(users)
         }
     }
 

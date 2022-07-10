@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidRecyclerViewDemo"
-        android:name = ".App">
+        android:name = ".utils.App">
         <activity
             android:name=".MainActivity"
             android:exported="true">
