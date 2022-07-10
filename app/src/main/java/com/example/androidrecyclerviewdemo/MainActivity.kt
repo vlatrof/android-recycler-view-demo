@@ -2,6 +2,7 @@ package com.example.androidrecyclerviewdemo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidrecyclerviewdemo.adapter.UsersAdapter
 import com.example.androidrecyclerviewdemo.databinding.ActivityMainBinding

@@ -2,7 +2,6 @@ package com.example.androidrecyclerviewdemo.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidrecyclerviewdemo.R
@@ -38,6 +37,7 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
             tvUserName.text = user.name
             tvUserCompanyName.text = user.company
+            ivMoreButton.setImageResource(R.drawable.ic_more)
 
             if (user.photo.isNotBlank()) {
                 Glide.with(ivUserPhoto.context)
