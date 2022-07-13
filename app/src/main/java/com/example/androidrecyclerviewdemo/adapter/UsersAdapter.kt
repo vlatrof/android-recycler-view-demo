@@ -1,8 +1,11 @@
 package com.example.androidrecyclerviewdemo.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -10,40 +13,37 @@ import com.example.androidrecyclerviewdemo.R
 import com.example.androidrecyclerviewdemo.databinding.ItemUserLayoutBinding
 import com.example.androidrecyclerviewdemo.model.User
 
-class UsersAdapter() : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
+class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
-    // DATA + SETTER + GETSIZE
     var users: List<User> = emptyList()
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(value: List<User>) {
         users = value
         notifyDataSetChanged()
     }
+
     override fun getItemCount(): Int = users.size
 
-    // VIEW HOLDER
-    class UsersViewHolder(
-        val binding: ItemUserLayoutBinding
-    ) : RecyclerView.ViewHolder(binding.root)
+    class UsersViewHolder(val binding: ItemUserLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
-    // VIEW HOLDER CREATE EMPTY
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
 
         val binding = ItemUserLayoutBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false)
+            LayoutInflater.from(parent.context), parent, false
+        )
 
-        binding.root.setOnClickListener {
-            onUserDetails(it.context, it.tag as User)
+        binding.root.setOnClickListener { itemView ->
+            onUserDetails(itemView.context, itemView.tag as User)
         }
 
-        binding.ivMoreButton.setOnClickListener {
-            // todo
+        binding.ivMoreButton.setOnClickListener { moreButtonView ->
+            showPopupMenu(moreButtonView)
         }
 
         return UsersViewHolder(binding)
 
     }
 
-    // VIEW HOLDER FILL AND BIND
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
 
         val user = users[position]
@@ -69,8 +69,13 @@ class UsersAdapter() : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
     }
 
-    fun onUserDetails(viewContext: Context, user: User) {
-        Toast.makeText(viewContext, user.toString(), Toast.LENGTH_SHORT).show()
+    fun onUserDetails(context: Context, user: User) {
+        Toast.makeText(context, user.toString(), Toast.LENGTH_SHORT).show()
+    }
+
+    fun showPopupMenu(moreButtonView: View) {
+
+        val popupMenu: PopupMenu(moreButtonView.context, )
     }
 
     fun onUserMove(user: User, moveBy: Int) {

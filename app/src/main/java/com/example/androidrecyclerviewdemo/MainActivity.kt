@@ -2,6 +2,7 @@ package com.example.androidrecyclerviewdemo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.androidrecyclerviewdemo.adapter.UsersAdapter
 import com.example.androidrecyclerviewdemo.databinding.ActivityMainBinding
 import com.example.androidrecyclerviewdemo.model.User
@@ -18,17 +19,17 @@ class MainActivity : AppCompatActivity(), UsersServiceListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        usersService = (applicationContext as App).usersService
-        usersService.addListener(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         usersAdapter = UsersAdapter()
         binding.rvUsers.adapter = usersAdapter
+        usersService = (applicationContext as App).usersService
+        usersService.addListener(this)
 
     }
 
     override fun onUsersUpdated(newUsersList: List<User>) {
-        usersAdapter.users = newUsersList
+        usersAdapter.setData(newUsersList)
     }
 
     override fun onDestroy() {
