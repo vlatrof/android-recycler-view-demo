@@ -1,20 +1,25 @@
 package com.example.androidrecyclerviewdemo.adapter
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidrecyclerviewdemo.R
 import com.example.androidrecyclerviewdemo.databinding.ItemUserLayoutBinding
 import com.example.androidrecyclerviewdemo.model.User
 
-class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
+interface UserActionListener {
+    fun onUserMove(user: User, moveBy: Int)
+    fun onUserDetails(user: User)
+    fun onUserDelete(user: User)
+}
+
+class UsersAdapter(
+    private val actionListener: UserActionListener
+) : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
     private val POPUN_MENU_ID_MOVE_UP = 1
     private val POPUN_MENU_ID_MOVE_DOWN = 2
@@ -37,7 +42,7 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
         )
 
         binding.root.setOnClickListener { itemView ->
-            onUserDetails(itemView.context, itemView.tag as User)
+            actionListener.onUserDetails(itemView.tag as User)
         }
 
         binding.ivMoreButton.setOnClickListener { moreButtonView ->
@@ -73,32 +78,28 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
     }
 
-    fun onUserDetails(context: Context, user: User) {
-        Toast.makeText(context, user.toString(), Toast.LENGTH_SHORT).show()
-    }
-
-    fun showPopupMenu(moreButtonView: View) {
+    private fun showPopupMenu(moreButtonView: View) {
 
         val user = moreButtonView.tag as User
         val userPosition = users.indexOfFirst { it.id == user.id }
         val popupMenu = PopupMenu(moreButtonView.context, moreButtonView)
 
-        popupMenu.menu.add(0, 1, Menu.NONE, "Move up").apply {
+        popupMenu.menu.add(0, POPUN_MENU_ID_MOVE_UP, Menu.NONE, "Move up").apply {
             isEnabled = userPosition > 0
         }
 
-        popupMenu.menu.add(0, 2, Menu.NONE, "Move down").apply {
+        popupMenu.menu.add(0, POPUN_MENU_ID_MOVE_DOWN, Menu.NONE, "Move down").apply {
             isEnabled = userPosition < users.size - 1
         }
 
-        popupMenu.menu.add(0, 3, Menu.NONE, "Delete user")
+        popupMenu.menu.add(0, POPUN_MENU_ID_DELETE_USER, Menu.NONE, "Delete user")
 
         popupMenu.setOnMenuItemClickListener { menuItem ->
 
             when (menuItem.itemId) {
-                POPUN_MENU_ID_MOVE_UP -> { onUserMove(user, 1) }
-                POPUN_MENU_ID_MOVE_DOWN -> { onUserMove(user, -1) }
-                POPUN_MENU_ID_DELETE_USER -> { onUserDelete(user)}
+                POPUN_MENU_ID_MOVE_UP -> { actionListener.onUserMove(user, 1) }
+                POPUN_MENU_ID_MOVE_DOWN -> { actionListener.onUserMove(user, -1) }
+                POPUN_MENU_ID_DELETE_USER -> { actionListener.onUserDelete(user)}
             }
 
             return@setOnMenuItemClickListener true
@@ -107,14 +108,6 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
         popupMenu.show()
 
-    }
-
-    fun onUserMove(user: User, moveBy: Int) {
-        TODO("Not yet implemented")
-    }
-
-    fun onUserDelete(user: User) {
-        TODO("Not yet implemented")
     }
 
 }

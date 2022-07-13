@@ -3,6 +3,7 @@ package com.example.androidrecyclerviewdemo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.androidrecyclerviewdemo.adapter.UserActionListener
 import com.example.androidrecyclerviewdemo.adapter.UsersAdapter
 import com.example.androidrecyclerviewdemo.databinding.ActivityMainBinding
 import com.example.androidrecyclerviewdemo.model.User
@@ -12,8 +13,10 @@ import com.example.androidrecyclerviewdemo.utils.UsersServiceListener
 
 class MainActivity : AppCompatActivity(), UsersServiceListener {
 
+    private val usersService: UsersService
+        get() = (applicationContext as App).usersService
+
     private lateinit var binding: ActivityMainBinding
-    private lateinit var usersService: UsersService
     private lateinit var usersAdapter: UsersAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,9 +24,20 @@ class MainActivity : AppCompatActivity(), UsersServiceListener {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        usersAdapter = UsersAdapter()
+
+        usersAdapter = UsersAdapter(object: UserActionListener {
+            override fun onUserMove(user: User, moveBy: Int) {
+                usersService.moveUser(user, moveBy)
+            }
+            override fun onUserDelete(user: User) {
+                usersService.deleteUser(user)
+            }
+            override fun onUserDetails( user: User) {
+                Toast.makeText(this@MainActivity, user.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })
+
         binding.rvUsers.adapter = usersAdapter
-        usersService = (applicationContext as App).usersService
         usersService.addListener(this)
 
     }

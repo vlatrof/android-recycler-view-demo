@@ -26,10 +26,6 @@ class UsersService {
 
     }
 
-    fun getUsers() : List<User> {
-        return users;
-    }
-
     fun deleteUser(user: User) {
         val indexToDelete = users.indexOfFirst { it.id == user.id }
         if (indexToDelete == -1) { return } // user not found
@@ -42,7 +38,7 @@ class UsersService {
         val oldIndex = users.indexOfFirst { it.id == user.id }
         if (oldIndex == -1) return // user not found
 
-        val newIndex = oldIndex + moveBy
+        val newIndex = oldIndex - moveBy // move up = decrease index
         if (newIndex < 0 || newIndex >= users.size) return
 
         Collections.swap(users, oldIndex, newIndex)
