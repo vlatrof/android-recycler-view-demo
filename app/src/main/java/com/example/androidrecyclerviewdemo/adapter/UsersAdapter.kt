@@ -3,6 +3,7 @@ package com.example.androidrecyclerviewdemo.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
@@ -15,16 +16,19 @@ import com.example.androidrecyclerviewdemo.model.User
 
 class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
+    private val POPUN_MENU_ID_MOVE_UP = 1
+    private val POPUN_MENU_ID_MOVE_DOWN = 2
+    private val POPUN_MENU_ID_DELETE_USER = 3
+
     var users: List<User> = emptyList()
-    @SuppressLint("NotifyDataSetChanged")
     fun setData(value: List<User>) {
         users = value
         notifyDataSetChanged()
     }
 
-    override fun getItemCount(): Int = users.size
-
     class UsersViewHolder(val binding: ItemUserLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun getItemCount(): Int = users.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
 
@@ -75,7 +79,23 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
     fun showPopupMenu(moreButtonView: View) {
 
-        val popupMenu: PopupMenu(moreButtonView.context, )
+        val popupMenu = PopupMenu(moreButtonView.context, moreButtonView)
+
+        popupMenu.menu.add(0, 1, Menu.NONE, "Move up")
+        popupMenu.menu.add(0, 2, Menu.NONE, "Move down")
+        popupMenu.menu.add(0, 3, Menu.NONE, "Delete user")
+
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+
+            when (menuItem.itemId) {
+                POPUN_MENU_ID_MOVE_UP -> { onUserMove(moreButtonView.tag as User, 1) }
+                POPUN_MENU_ID_MOVE_DOWN -> { onUserMove(moreButtonView.tag as User, -1) }
+                POPUN_MENU_ID_DELETE_USER -> { onUserDelete(moreButtonView.tag as User)}
+            }
+
+            true
+        }
+
     }
 
     fun onUserMove(user: User, moveBy: Int) {
