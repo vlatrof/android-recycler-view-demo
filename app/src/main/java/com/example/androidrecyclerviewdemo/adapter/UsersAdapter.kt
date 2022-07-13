@@ -79,22 +79,33 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
 
     fun showPopupMenu(moreButtonView: View) {
 
+        val user = moreButtonView.tag as User
+        val userPosition = users.indexOfFirst { it.id == user.id }
         val popupMenu = PopupMenu(moreButtonView.context, moreButtonView)
 
-        popupMenu.menu.add(0, 1, Menu.NONE, "Move up")
-        popupMenu.menu.add(0, 2, Menu.NONE, "Move down")
+        popupMenu.menu.add(0, 1, Menu.NONE, "Move up").apply {
+            isEnabled = userPosition > 0
+        }
+
+        popupMenu.menu.add(0, 2, Menu.NONE, "Move down").apply {
+            isEnabled = userPosition < users.size - 1
+        }
+
         popupMenu.menu.add(0, 3, Menu.NONE, "Delete user")
 
         popupMenu.setOnMenuItemClickListener { menuItem ->
 
             when (menuItem.itemId) {
-                POPUN_MENU_ID_MOVE_UP -> { onUserMove(moreButtonView.tag as User, 1) }
-                POPUN_MENU_ID_MOVE_DOWN -> { onUserMove(moreButtonView.tag as User, -1) }
-                POPUN_MENU_ID_DELETE_USER -> { onUserDelete(moreButtonView.tag as User)}
+                POPUN_MENU_ID_MOVE_UP -> { onUserMove(user, 1) }
+                POPUN_MENU_ID_MOVE_DOWN -> { onUserMove(user, -1) }
+                POPUN_MENU_ID_DELETE_USER -> { onUserDelete(user)}
             }
 
-            true
+            return@setOnMenuItemClickListener true
+
         }
+
+        popupMenu.show()
 
     }
 
