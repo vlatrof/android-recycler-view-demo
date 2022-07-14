@@ -3,6 +3,7 @@ package com.example.androidrecyclerviewdemo.utils
 import com.example.androidrecyclerviewdemo.model.User
 import com.github.javafaker.Faker
 import java.util.*
+import kotlin.collections.ArrayList
 
 class UsersService {
 
@@ -29,6 +30,7 @@ class UsersService {
     fun deleteUser(user: User) {
         val indexToDelete = users.indexOfFirst { it.id == user.id }
         if (indexToDelete == -1) { return } // user not found
+        users = ArrayList(users) // creating new list for comparing in recycler view adapter
         users.removeAt(indexToDelete)
         notifyChanges()
     }
@@ -40,6 +42,8 @@ class UsersService {
 
         val newIndex = oldIndex - moveBy // move up = decrease index
         if (newIndex < 0 || newIndex >= users.size) return
+
+        users = ArrayList(users)
 
         Collections.swap(users, oldIndex, newIndex)
 

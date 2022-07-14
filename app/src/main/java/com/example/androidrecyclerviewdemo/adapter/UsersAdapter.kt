@@ -46,9 +46,11 @@ class UsersAdapter(
     private val POPUN_MENU_ID_DELETE_USER = 3
 
     var users: List<User> = emptyList()
-    fun setData(value: List<User>) {
-        users = value
-        notifyDataSetChanged()
+    fun setData(newUsersList: List<User>) {
+        val usersDiffCallback = UsersDiffCallback(users, newUsersList)
+        val difResult = DiffUtil.calculateDiff(usersDiffCallback)
+        users = newUsersList
+        difResult.dispatchUpdatesTo(this@UsersAdapter)
     }
 
     class UsersViewHolder(val binding: ItemUserLayoutBinding) : RecyclerView.ViewHolder(binding.root)
