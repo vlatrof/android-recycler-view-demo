@@ -16,6 +16,7 @@ interface UserActionListener {
     fun onUserMove(user: User, moveBy: Int)
     fun onUserDetails(user: User)
     fun onUserDelete(user: User)
+    fun onUserFire(user: User)
 }
 
 // наша реализация обработчика сравнения DiffUtil
@@ -40,10 +41,6 @@ class UsersDiffCallback(
 class UsersAdapter(
     private val actionListener: UserActionListener
 ) : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
-
-    private val POPUN_MENU_ID_MOVE_UP = 1
-    private val POPUN_MENU_ID_MOVE_DOWN = 2
-    private val POPUN_MENU_ID_DELETE_USER = 3
 
     var users: List<User> = emptyList()
     fun setData(newUsersList: List<User>) {
@@ -82,7 +79,7 @@ class UsersAdapter(
         val binding = holder.binding
         holder.itemView.tag = user
         binding.tvUserName.text = user.name
-        binding.tvUserCompanyName.text = user.company
+        binding.tvUserCompanyName.text = if (user.company.isNotBlank()) user.company else "Unemployed"
         binding.ivMoreButton.tag = user
         binding.ivMoreButton.setImageResource(R.drawable.ic_more)
 
@@ -106,22 +103,27 @@ class UsersAdapter(
         val userPosition = users.indexOfFirst { it.id == user.id }
         val popupMenu = PopupMenu(moreButtonView.context, moreButtonView)
 
-        popupMenu.menu.add(0, POPUN_MENU_ID_MOVE_UP, Menu.NONE, "Move up").apply {
+        popupMenu.menu.add(0, POPUP_MENU_ID_MOVE_UP, Menu.NONE, "Move up").apply {
             isEnabled = userPosition > 0
         }
 
-        popupMenu.menu.add(0, POPUN_MENU_ID_MOVE_DOWN, Menu.NONE, "Move down").apply {
+        popupMenu.menu.add(0, POPUP_MENU_ID_MOVE_DOWN, Menu.NONE, "Move down").apply {
             isEnabled = userPosition < users.size - 1
         }
 
-        popupMenu.menu.add(0, POPUN_MENU_ID_DELETE_USER, Menu.NONE, "Delete user")
+        popupMenu.menu.add(0, POPUP_MENU_ID_DELETE_USER, Menu.NONE, "Delete user")
+
+        popupMenu.menu.add(0, POPUP_MENU_ID_FIRE_USER, Menu.NONE, "Fire user").apply {
+            isEnabled = user.company.isNotBlank()
+        }
 
         popupMenu.setOnMenuItemClickListener { menuItem ->
 
             when (menuItem.itemId) {
-                POPUN_MENU_ID_MOVE_UP -> { actionListener.onUserMove(user, 1) }
-                POPUN_MENU_ID_MOVE_DOWN -> { actionListener.onUserMove(user, -1) }
-                POPUN_MENU_ID_DELETE_USER -> { actionListener.onUserDelete(user)}
+                POPUP_MENU_ID_MOVE_UP -> { actionListener.onUserMove(user, 1) }
+                POPUP_MENU_ID_MOVE_DOWN -> { actionListener.onUserMove(user, -1) }
+                POPUP_MENU_ID_DELETE_USER -> { actionListener.onUserDelete(user)}
+                POPUP_MENU_ID_FIRE_USER -> {actionListener.onUserFire(user)}
             }
 
             return@setOnMenuItemClickListener true
@@ -130,6 +132,13 @@ class UsersAdapter(
 
         popupMenu.show()
 
+    }
+
+    companion object {
+        private const val POPUP_MENU_ID_MOVE_UP = 1
+        private const val POPUP_MENU_ID_MOVE_DOWN = 2
+        private const val POPUP_MENU_ID_DELETE_USER = 3
+        private const val POPUP_MENU_ID_FIRE_USER = 4
     }
 
 }

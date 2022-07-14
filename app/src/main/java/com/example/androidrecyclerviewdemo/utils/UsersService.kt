@@ -28,11 +28,31 @@ class UsersService {
     }
 
     fun deleteUser(user: User) {
+
         val indexToDelete = users.indexOfFirst { it.id == user.id }
-        if (indexToDelete == -1) { return } // user not found
-        users = ArrayList(users) // creating new list for comparing in recycler view adapter
+        if (indexToDelete == -1) return // user not found
+
+        // creating new list for comparing in recycler view adapter
+        users = ArrayList(users)
         users.removeAt(indexToDelete)
         notifyChanges()
+
+    }
+
+    fun fireUser(user: User) {
+
+        val indexUserToFire = users.indexOfFirst { it.id == user.id }
+        if (indexUserToFire == -1) return // user not found
+
+        // creating new user for comparing in recycler view adapter
+        val updatedUser = user.copy(company = "")
+        users[indexUserToFire] = updatedUser
+
+        // creating new list for comparing in recycler view adapter
+        users = ArrayList(users)
+
+        notifyChanges()
+
     }
 
     fun moveUser(user: User, moveBy: Int) {
@@ -41,12 +61,11 @@ class UsersService {
         if (oldIndex == -1) return // user not found
 
         val newIndex = oldIndex - moveBy // move up = decrease index
-        if (newIndex < 0 || newIndex >= users.size) return
+        if (newIndex < 0 || newIndex >= users.size) return // new user position out of bounds
 
+        // creating new list for comparing in recycler view adapter
         users = ArrayList(users)
-
         Collections.swap(users, oldIndex, newIndex)
-
         notifyChanges()
 
     }

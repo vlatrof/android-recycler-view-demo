@@ -26,15 +26,13 @@ class MainActivity : AppCompatActivity(), UsersServiceListener {
         setContentView(binding.root)
 
         usersAdapter = UsersAdapter(object: UserActionListener {
-            override fun onUserMove(user: User, moveBy: Int) {
-                usersService.moveUser(user, moveBy)
-            }
-            override fun onUserDelete(user: User) {
-                usersService.deleteUser(user)
-            }
-            override fun onUserDetails( user: User) {
+
+            override fun onUserMove(user: User, moveBy: Int) = usersService.moveUser(user, moveBy)
+            override fun onUserDelete(user: User) = usersService.deleteUser(user)
+            override fun onUserFire(user: User) = usersService.fireUser(user)
+            override fun onUserDetails( user: User) =
                 Toast.makeText(this@MainActivity, user.toString(), Toast.LENGTH_SHORT).show()
-            }
+
         })
 
         binding.rvUsers.adapter = usersAdapter
