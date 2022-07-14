@@ -44,13 +44,13 @@ class UsersService {
         val indexUserToFire = users.indexOfFirst { it.id == user.id }
         if (indexUserToFire == -1) return // user not found
 
-        // creating new user for comparing in recycler view adapter
+        // creating new user for comparing in recyclerview adapter
         val updatedUser = user.copy(company = "")
-        users[indexUserToFire] = updatedUser
 
-        // creating new list for comparing in recycler view adapter
+        // creating new list for comparing in recyclerview adapter
         users = ArrayList(users)
 
+        users[indexUserToFire] = updatedUser
         notifyChanges()
 
     }
